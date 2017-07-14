@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<context:component-scan base-package="remainder" />
+
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+
+	<!-- Initialization for data source -->
+	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+		<property name="url" value="jdbc:derby://172.24.18.76:1527/XBBNHCN" />
+		<property name="username" value="ren_schema" />
+		<property name="password" value="pwd" />
+	</bean>
+	
+	<bean id="metaData" class="remainder.api.model.MetaData" />
+	<bean id="data" class="remainder.api.model.Data" />
+	<bean id="error" class="remainder.api.model.ErrorDetails" />
+	<bean id="response" class="remainder.api.model.Response" />
+
+
+
+
+	<!-- Definition for studentJDBCTemplate bean -->
+	<bean id="remainderJDBCTemplate" class="remainder.api.daoimpl.EventDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+</beans>
